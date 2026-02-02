@@ -5,7 +5,7 @@ project(balrog)
 add_library(
     balrog
     STATIC
-    src/balrog/line.cpp
+    src/balrog/series.cpp
 )
 target_include_directories(
     balrog
