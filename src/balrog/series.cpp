@@ -4,8 +4,20 @@
 
 namespace balrog {
 
-Series::Series() {
-}
+Series::Series(const std::string &label) : label_(label) {}
+
+Series::Series(
+    const std::string &label,
+    const std::vector<float> &x,
+    const std::vector<float> &y
+) : label_(label), x_(x), y_(y) {}
+
+Series::Series(
+    const std::string &label,
+    const std::vector<float> &x,
+    const std::vector<float> &y,
+    const Pen &pen
+) : label_(label), x_(x), y_(y), pen_(pen) {}
 
 Pen &Series::pen() {
     return pen_;
