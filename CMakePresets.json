@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 28,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "release",
+      "description": "Default CMake preset",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_TOOLCHAIN_FILE": "/home/neo/Desktop/tj/conanfiles/third-party/gcc/release/conan_toolchain.cmake"
+      }
+    },
+    {
+      "name": "debug",
+      "description": "Default CMake preset",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_TOOLCHAIN_FILE": "/home/neo/Desktop/tj/conanfiles/third-party/gcc/debug/conan_toolchain.cmake"
+      }
+    },
+    {
+      "name": "release-clang",
+      "description": "Default CMake preset",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_TOOLCHAIN_FILE": "/home/neo/Desktop/tj/conanfiles/third-party/clang/release/conan_toolchain.cmake"
+      }
+    },
+    {
+      "name": "debug-clang",
+      "description": "Default CMake preset",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_TOOLCHAIN_FILE": "/home/neo/Desktop/tj/conanfiles/third-party/clang/debug/conan_toolchain.cmake"
+      }
+    }
+  ]
+}
