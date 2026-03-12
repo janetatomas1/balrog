@@ -5,8 +5,13 @@
 #include <GLFW/glfw3.h>
 #include <stdexcept>
 
+#include "balrog/plot.hpp"
+
+namespace balrog {
+
 class GLContext {
 private:
+    Plot plot;
     GLFWwindow* window_ = nullptr;
     bool initialized_ = false;
 
@@ -15,7 +20,12 @@ private:
     }
 
 public:
-    GLContext(int width = 1280, int height = 720, const char* title = "GL Window") {
+    GLContext(
+        const char* title = "Balrog Plot",
+        bool maximized = true,
+        int width = 1280,
+        int height = 720
+    ) {
         if (!glfwInit()) throw std::runtime_error("GLFW init failed");
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -28,6 +38,10 @@ public:
             throw std::runtime_error("Window creation failed");
         }
 
+        if(maximized) {
+            glfwMaximizeWindow(window_);
+        }
+
         glfwMakeContextCurrent(window_);
         glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
 
@@ -38,6 +52,8 @@ public:
 
         glViewport(0, 0, width, height);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+        plot.init();
         initialized_ = true;
     }
 
@@ -59,6 +75,8 @@ public:
             glfwSetWindowShouldClose(window_, 1);
         }
 
+        // plot.show();
+
         glClear(GL_COLOR_BUFFER_BIT);
 
         glfwSwapBuffers(window_);
@@ -76,3 +94,5 @@ public:
         }
     }
 };
+
+}

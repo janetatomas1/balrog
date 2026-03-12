@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 
+#include "balrog/vertex.hpp"
 #include "balrog/pen.hpp"
 
 namespace balrog {
@@ -29,8 +30,6 @@ public:
     );
     const float* xdata() const;
     const float* ydata() const;
-    std::vector<float> &xdata_vector();
-    std::vector<float> &ydata_vector();
     size_t size() const;
     Pen &pen();
     const Pen &pen() const;

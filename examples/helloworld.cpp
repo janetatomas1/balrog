@@ -2,9 +2,10 @@
 #include <balrog/opengl/context.hpp>
 #include <iostream>
 
+using namespace balrog;
 
 int main() {
-    GLContext ctx(1024, 768, "My GL App");
+    GLContext ctx("Hello World from Balrog !!!");
     ctx.show();
     return 0;
 }
