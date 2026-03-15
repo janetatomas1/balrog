@@ -5,22 +5,6 @@
 
 namespace balrog {
 
-GLenum error;
-
-void debug() {
-    error = glGetError();
-    switch(error) {
-        case GL_NO_ERROR: std::cout << "no error" << std::endl;break;
-        case GL_INVALID_ENUM: std::cout << "1" << std::endl;break;
-        case GL_INVALID_VALUE: std::cout << "no error2" << std::endl;break;
-        case GL_INVALID_OPERATION: std::cout << "no error3" << std::endl;break;
-        case GL_INVALID_FRAMEBUFFER_OPERATION: std::cout << "no error4" << std::endl;break;
-        case GL_OUT_OF_MEMORY: std::cout << "no error5" << std::endl;break;
-        case GL_STACK_UNDERFLOW: std::cout << "no error6" << std::endl;break;
-        case GL_STACK_OVERFLOW: std::cout << "no error7" << std::endl;break;
-    }
-}
-
 Series::Series(const std::string &label) : label_(label) {
     program_ = {
         R"(
@@ -63,8 +47,6 @@ Series::Series(
         }
         )"
     };
-    debug();
-    int xx = 0;
 }
 
 const float* Series::xdata() const {
