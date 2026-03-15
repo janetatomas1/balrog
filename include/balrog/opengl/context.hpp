@@ -11,7 +11,7 @@ namespace balrog {
 
 class GLContext {
 private:
-    Plot plot;
+    Plot plot_;
     GLFWwindow* window_ = nullptr;
     bool initialized_ = false;
 
@@ -53,7 +53,6 @@ public:
         glViewport(0, 0, width, height);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-        plot.init();
         initialized_ = true;
     }
 
@@ -75,11 +74,10 @@ public:
             glfwSetWindowShouldClose(window_, 1);
         }
 
-        // plot.show();
-
-        glClear(GL_COLOR_BUFFER_BIT);
+        plot_.show();
 
         glfwSwapBuffers(window_);
+        glClear(GL_COLOR_BUFFER_BIT);
     }
 
     bool should_close() const {
@@ -92,6 +90,10 @@ public:
         while (!should_close()) {
             render();
         }
+    }
+
+    Plot& plot() {
+        return plot_;
     }
 };
 

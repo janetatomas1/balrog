@@ -4,55 +4,57 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "balrog/vertex.hpp"
-
 namespace balrog {
 
 struct Buffer {
-    GLuint vbo = 0, vao = 0;
-    size_t capacity = 0, count = 0;
+    GLuint VAO, VBOx, VBOy;
 
     Buffer() {
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBOx);
+        glGenBuffers(1, &VBOy);
     }
 
-    void init() {
-        glGenVertexArrays(1, &vao);
-        glGenBuffers(1, &vbo);
+    void bindx() {
+        glBindVertexArray(VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBOx);
     }
 
-    ~Buffer() {
-        if (vbo)
-            glDeleteBuffers(1, &vbo);
-
-        if (vao)
-            glDeleteVertexArrays(1, &vao);
-    }
-
-    void upload(const std::vector<Vertex> &verts, GLenum usage = GL_DYNAMIC_DRAW) {
-        glBindVertexArray(vao);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-        glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(Vertex), verts.data(), usage);
-
-        capacity = verts.size();
-        count = verts.size();
-        layout();
-    }
-
-    static void layout() {
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 8, (void*)0);
-        glEnableVertexAttribArray(0);
-    }
-
-    void bind() {
-        glBindVertexArray(vao);
-        // No need to bind VBO explicitly; VAO handles attributes via glVertexAttribPointer calls during setup
+    void bindy() {
+        glBindVertexArray(VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBOy);
     }
 
     void unbind() {
         glBindVertexArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
+
+    void uploadx(const std::vector<float> &vertices) {
+        bindx();
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+        layout(0);
+    }
+
+    void uploady(const std::vector<float> &vertices) {
+        bindy();
+        glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
+        layout(1);
+    }
+
+    void layout(size_t idx) {
+        glVertexAttribPointer(idx, 1, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glEnableVertexAttribArray(idx);
+    }
+
+    ~Buffer() {}
+    void destroy() {
+        glDeleteVertexArrays(1, &VAO);
+        glDeleteBuffers(1, &VBOx);
+        glDeleteBuffers(1, &VBOy);
+    }
+
+    void bind() { glBindVertexArray(VAO); }
 };
 
 }

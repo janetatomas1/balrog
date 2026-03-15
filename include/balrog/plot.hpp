@@ -9,15 +9,12 @@
 namespace balrog {
 
 class Plot {
-    Backend backend;
+    std::vector<Series> series_;
 
-    std::vector<Series> series;
 public:
     Plot() = default;
     void show();
-    void init() {
-        backend.init();
-    }
+    void add_series(Series &&series);
 };
 
 }
