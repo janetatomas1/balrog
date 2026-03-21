@@ -28,6 +28,8 @@ int main() {
     series->pen().color = {
         0.0f, 1.0f, 0.0f, 1.0f
     };
+    series->pen().width = 5.0f;
+
     ctx.plot().add_series(std::make_unique<Series>("abc", x_data, y_data));
     ctx.plot().add_series(std::move(series));
     ctx.show();

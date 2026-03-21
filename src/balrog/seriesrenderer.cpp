@@ -13,14 +13,16 @@ void GLSeriesRenderer::render(Series *series) {
     program_.use();
 
     auto &color = series->pen().color;
-
     glUniform4f(colorLocation_, color.red, color.green, color.blue, color.alpha);
+    glLineWidth(series->pen().width);
+
     buffer_.bind();
 
     glDrawArrays(GL_LINE_STRIP, 0, series->size());
 }
 
 GLSeriesRenderer::GLSeriesRenderer(): SeriesRenderer() {
+    glEnable(GL_LINE_SMOOTH);
     program_ = {
         R"(
         #version 330 core

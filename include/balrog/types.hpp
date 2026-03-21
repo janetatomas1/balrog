@@ -12,7 +12,7 @@ struct Color {
 
 struct Pen {
     Color color;
-    float width;
+    float width = 1.0f;
 };
 
 }
