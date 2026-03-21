@@ -8,6 +8,7 @@
 #include "balrog/opengl/program.hpp"
 #include "balrog/opengl/buffer.hpp"
 #include "balrog/seriesrenderer.hpp"
+#include "balrog/types.hpp"
 
 namespace balrog {
 
@@ -16,6 +17,7 @@ class Series {
     std::vector<float> x_;
     std::vector<float> y_;
     std::unique_ptr<SeriesRenderer> renderer_;
+    Pen pen_;
 
 public:
     Series(const std::string &label = "");
@@ -32,6 +34,7 @@ public:
     std::string &label();
     const std::string &label() const;
     void show();
+    Pen &pen();
 };
 
 } // namespace balrog

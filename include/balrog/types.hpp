@@ -10,4 +10,9 @@ struct Color {
     float alpha = 1.0;
 };
 
+struct Pen {
+    Color color;
+    float width;
+};
+
 }

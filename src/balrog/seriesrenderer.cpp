@@ -11,6 +11,10 @@ void GLSeriesRenderer::render(Series *series) {
         series->yvector()
     );
     program_.use();
+
+    auto &color = series->pen().color;
+
+    glUniform4f(colorLocation_, color.red, color.green, color.blue, color.alpha);
     buffer_.bind();
 
     glDrawArrays(GL_LINE_STRIP, 0, series->size());
@@ -28,12 +32,16 @@ GLSeriesRenderer::GLSeriesRenderer(): SeriesRenderer() {
         )",
         R"(
         #version 330 core
+
+        uniform vec4 u_color;
         out vec4 FragColor;
         void main() {
-            FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red
+            FragColor = u_color;
         }
         )"
     };
+
+     colorLocation_ = glGetUniformLocation(program_.id, "u_color");
 };
 
 } // namespace balrog

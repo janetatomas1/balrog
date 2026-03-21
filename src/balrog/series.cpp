@@ -7,7 +7,7 @@
 namespace balrog {
 
 Series::Series(const std::string &label) : label_(label) {
-    // renderer_ = std::make_unique<GLSeriesRenderer>();
+    renderer_ = std::make_unique<GLSeriesRenderer>();
 }
 
 Series::Series(
@@ -40,6 +40,10 @@ size_t Series::size() const {
 
 void Series::show() {
     renderer_->render(this);
+}
+
+Pen& Series::pen() {
+    return pen_;
 }
 
 } // namespace balrog

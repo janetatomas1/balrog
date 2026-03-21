@@ -12,6 +12,7 @@ class GLSeriesRenderer: public SeriesRenderer {
     Program program_;
     Buffer buffer_;
 
+    GLint colorLocation_;
 public:
     void render(Series *series) override;
     GLSeriesRenderer();
