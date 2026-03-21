@@ -3,19 +3,19 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 #include "balrog/opengl/program.hpp"
 #include "balrog/opengl/buffer.hpp"
+#include "balrog/seriesrenderer.hpp"
 
 namespace balrog {
 
 class Series {
-    Program program_;
-    Buffer buffer_;
-
     std::string label_;
     std::vector<float> x_;
     std::vector<float> y_;
+    std::unique_ptr<SeriesRenderer> renderer_;
 
 public:
     Series(const std::string &label = "");
@@ -26,6 +26,8 @@ public:
     );
     const float* xdata() const;
     const float* ydata() const;
+    std::vector<float>& xvector();
+    std::vector<float>& yvector();
     size_t size() const;
     std::string &label();
     const std::string &label() const;

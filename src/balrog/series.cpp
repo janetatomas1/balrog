@@ -2,27 +2,12 @@
 #include <iostream>
 
 #include "balrog/series.hpp"
+#include "balrog/opengl/seriesrenderer.hpp"
 
 namespace balrog {
 
 Series::Series(const std::string &label) : label_(label) {
-    program_ = {
-        R"(
-        #version 330 core
-        layout(location=0) in float x;
-        layout(location=1) in float y;
-        void main() {
-            gl_Position = vec4(x, y, 0.0, 10.0);
-        }
-        )",
-        R"(
-        #version 330 core
-        out vec4 FragColor;
-        void main() {
-            FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red
-        }
-        )"
-    };
+    // renderer_ = std::make_unique<GLSeriesRenderer>();
 }
 
 Series::Series(
@@ -30,23 +15,7 @@ Series::Series(
     const std::vector<float> &x,
     const std::vector<float> &y
 ) : label_(label), x_(x), y_(y) {
-    program_ = {
-        R"(
-        #version 330 core
-        layout(location=0) in float x;
-        layout(location=1) in float y;
-        void main() {
-            gl_Position = vec4(x, y, 0.0, 10.0);
-        }
-        )",
-        R"(
-        #version 330 core
-        out vec4 FragColor;
-        void main() {
-            FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red
-        }
-        )"
-    };
+    renderer_ = std::make_unique<GLSeriesRenderer>();
 }
 
 const float* Series::xdata() const {
@@ -57,20 +26,20 @@ const float* Series::ydata() const {
     return y_.data();
 }
 
+std::vector<float>& Series::xvector() {
+    return x_;
+}
+
+std::vector<float>& Series::yvector() {
+    return y_;
+}
+
 size_t Series::size() const {
     return x_.size();
 }
 
 void Series::show() {
-    buffer_.uploadx(
-        x_
-    );
-    buffer_.uploady(
-        y_
-    );
-    program_.use();
-    buffer_.bind();
-    glDrawArrays(GL_LINE_STRIP, 0, x_.size());
+    renderer_->render(this);
 }
 
 } // namespace balrog

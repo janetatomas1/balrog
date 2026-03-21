@@ -17,6 +17,7 @@ add_library(
     STATIC
     src/balrog/series.cpp
     src/balrog/plot.cpp
+    src/balrog/seriesrenderer.cpp
 )
 target_include_directories(
     balrog
