@@ -24,11 +24,11 @@ int main() {
     }
 
     GLContext ctx("Hello World from Balrog !!!");
-    auto series = Series("abc", x_data, z_data);
-    series.pen().color = {
+    auto series = std::make_unique<Series>("abc", x_data, z_data);
+    series->pen().color = {
         0.0f, 1.0f, 0.0f, 1.0f
     };
-    ctx.plot().add_series(Series("abc", x_data, y_data));
+    ctx.plot().add_series(std::make_unique<Series>("abc", x_data, y_data));
     ctx.plot().add_series(std::move(series));
     ctx.show();
     return 0;

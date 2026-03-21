@@ -6,20 +6,20 @@
 #include "balrog/opengl/backend.hpp"
 #include "balrog/series.hpp"
 #include "balrog/types.hpp"
+#include <memory>
 
 namespace balrog {
 
 class Plot {
-    std::vector<Series> series_;
+    std::vector<std::unique_ptr<Series>> series_;
     Color backgroundColor_ = {
         1.0f, 1.0f, 1.0f, 1.0f
     };
 
-
 public:
     Plot() = default;
     void show();
-    void add_series(Series &&series);
+    void add_series(std::unique_ptr<Series> series);
     Color& background_color();
 };
 

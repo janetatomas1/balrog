@@ -13,11 +13,11 @@ void Plot::show() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     for(auto &s: series_) {
-        s.show();
+        s->show();
     }
 }
 
-void Plot::add_series(Series &&series) {
+void Plot::add_series(std::unique_ptr<Series> series) {
     series_.push_back(std::move(series));
 }
 
