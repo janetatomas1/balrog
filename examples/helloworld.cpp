@@ -14,15 +14,22 @@ int main() {
     float current = begin;
     std::vector<float> x_data(n);
     std::vector<float> y_data(n);
+    std::vector<float> z_data(n);
 
     for(size_t i=0;i < x_data.size();i++) {
         x_data[i] = current;
         y_data[i] = std::sin(2 * x_data[i]) - 5;
+        z_data[i] = 2 * std::sin(2 * x_data[i] + 2) + 2;
         current += (end - begin) / n;
     }
 
     GLContext ctx("Hello World from Balrog !!!");
+    auto series = Series("abc", x_data, z_data);
+    series.pen().color = {
+        0.0f, 1.0f, 0.0f, 1.0f
+    };
     ctx.plot().add_series(Series("abc", x_data, y_data));
+    ctx.plot().add_series(std::move(series));
     ctx.show();
     return 0;
 }
