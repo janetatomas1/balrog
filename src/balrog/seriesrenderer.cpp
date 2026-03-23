@@ -43,7 +43,7 @@ GLSeriesRenderer::GLSeriesRenderer(): SeriesRenderer() {
         )"
     };
 
-     colorLocation_ = glGetUniformLocation(program_.id, "u_color");
+     colorLocation_ = program_.get_uniform("u_color");
 };
 
 } // namespace balrog

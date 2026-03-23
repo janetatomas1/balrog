@@ -15,6 +15,8 @@ void Plot::show() {
     for(auto &s: series_) {
         s->show();
     }
+
+    grid_->show();
 }
 
 void Plot::add_series(std::unique_ptr<Series> series) {
@@ -23,6 +25,10 @@ void Plot::add_series(std::unique_ptr<Series> series) {
 
 Color& Plot::background_color() {
     return backgroundColor_;
+}
+
+void Plot::init() {
+    grid_ = std::make_unique<Grid>();
 }
 
 }

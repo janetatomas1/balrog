@@ -52,6 +52,7 @@ public:
 
         glViewport(0, 0, width, height);
 
+        plot_.init();
         initialized_ = true;
     }
 

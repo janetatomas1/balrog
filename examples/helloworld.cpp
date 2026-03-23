@@ -8,7 +8,7 @@
 using namespace balrog;
 
 int main() {
-    size_t n = 1000;
+    size_t n = 10000;
     float begin = -10;
     float end = 10;
     float current = begin;
